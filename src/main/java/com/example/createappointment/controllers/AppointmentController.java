@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/appointments")
+@RequestMapping("/api/appointments")
 public class AppointmentController {
 
     private final AppointmentService appointmentService;
@@ -28,24 +28,5 @@ public class AppointmentController {
         return new ResponseEntity<>(createdAppointment, HttpStatus.CREATED);
     }
 
-    // Obtener una cita por ID
-    @GetMapping("/{id}")
-    public ResponseEntity<Appointment> getAppointment(@PathVariable Long id) {
-        Optional<Appointment> appointment = appointmentService.getAppointment(id);
-        return appointment.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-    }
 
-    // Actualizar una cita
-    @PutMapping("/{id}")
-    public ResponseEntity<Appointment> updateAppointment(@PathVariable Long id, @RequestBody Appointment updatedAppointment) {
-        Appointment updated = appointmentService.updateAppointment(id, updatedAppointment);
-        return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
-    }
-
-    // Eliminar una cita
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAppointment(@PathVariable Long id) {
-        appointmentService.deleteAppointment(id);
-        return ResponseEntity.noContent().build();
-    }
 }
