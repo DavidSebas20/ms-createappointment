@@ -8,10 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/appointments")
+@RequestMapping("/create-appointment/appointments")
 public class AppointmentController {
 
     private final AppointmentService appointmentService;
@@ -26,6 +25,11 @@ public class AppointmentController {
     public ResponseEntity<Appointment> createAppointment(@RequestBody Appointment appointment) {
         Appointment createdAppointment = appointmentService.createAppointment(appointment);
         return new ResponseEntity<>(createdAppointment, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/health")
+    public ResponseEntity<String> healthCheck() {
+        return ResponseEntity.ok("Healthy");
     }
 
 
